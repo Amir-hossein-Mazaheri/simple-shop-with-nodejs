@@ -1,0 +1,43 @@
+<header class="w-full px-12 py-4 font-semibold text-md bg-emerald-700">
+    <nav class="flex justify-between items-center">
+        <ul class="flex gap-8 items-center">
+            <li class="hover:text-yellow-300 transition-colors text-white <%= tab === "shop" && "text-yellow-300" %>">
+                <a href="/shop"> Shop </a>
+            </li>
+            <% if(isLoggedIn) { %>
+                <li class="hover:text-yellow-300 transition-colors text-white <%= tab === "cart" && "text-yellow-300" %>">
+                    <a href="/shop/cart"> Cart </a>
+                </li>
+                <li class="hover:text-yellow-300 transition-colors text-white <%= tab === "orders" && "text-yellow-300" %>">
+                    <a href="/shop/orders"> Orders </a>
+                </li>
+            <% } %>
+            <% if(role === "superuser") { %>
+                <li class="hover:text-yellow-300 transition-colors text-white <%= tab === "add-product" && "text-yellow-300" %>">
+                    <a href="/shop/add-product">Add Product</a>
+                </li>
+                <li class="hover:text-yellow-300 transition-colors text-white <%= tab === "admin-products" && "text-yellow-300" %>">
+                    <a href="/admin/products">Admin Product</a>
+                </li>
+            <% } %>
+        </ul>
+        <ul class="flex gap-8 items-center">
+            <% if(!isLoggedIn) { %>
+                <li class="border px-3 py-1 rounded-lg border-white hover:text-yellow-300 transition-colors text-white <%= tab === "signin" && "text-yellow-300" %>">
+                    <a href="/user/signin"> Sign In </a>
+                </li>
+                <li class="hover:text-yellow-300 transition-colors text-white <%= tab === "signup" && "text-yellow-300" %>">
+                    <a href="/user/signup"> Sign Up </a>
+                </li>
+            <% } else { %>
+                <li class="hover:text-yellow-300 transition-colors text-white">
+                    <form action="/user/logout" method="POST">
+                        <button type="submit">Logout</button>
+                        <input type="hidden" value="<%= csrfToken %>" name="_csrf" />
+                        <input type="hidden" name="dummy" value="dummy"/>
+                    </form>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+</header>

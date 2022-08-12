@@ -1,0 +1,26 @@
+<%- include('../includes/header') %>
+
+<body>
+  <%- include('../includes/nav') %>
+
+  <div class="w-full h-screen flex justify-center items-center">
+    <div class="shadow-md shadow-gray-200 rounded-xl px-10 py-8">
+      <h1 class="text-gray-700 text-2xl font-black mb-3">Sign Up</h1>
+      <form action="/user/signup" method="POST">
+        <%- include('../includes/input', { type: "text", name: "firstname", placeholder: "Enter your firstname", value:null }) %>
+
+        <%- include('../includes/input', { type: "text", name: "lastname", placeholder: "Enter your lastname", value:null }) %>
+
+        <%- include('../includes/input', { type: "text", name: "email", placeholder: "Enter your email", value:null }) %>
+
+        <%- include('../includes/input', { type: "password", name: "password", placeholder: "Enter your password", value:null }) %>
+
+        <input type="hidden" value="<%= csrfToken %>" name="_csrf" /
+
+        <%- include('../includes/button', { type: "submit", content: "Sign Up" }) %>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

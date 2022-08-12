@@ -1,0 +1,16 @@
+<div class="border relative border-gray-200 px-4 py-3 rounded-xl flex gap-4">
+    <div class="rounded-xl overflow-hidden shadow">
+        <img class="max-w-full h-20" src="<%= image %>" alt="<% title %>"/>
+    </div>
+    <div>
+        <h3 class="font-black text-gray-700 mb-4 text-2xl"><%= title %></h3>
+        <p class="font-medium text-gray-600 text-lg"><%= description %></p>
+    </div>
+    <div class="absolute top-0 bottom-0 px-4 py-3 flex items-center gap-8 right-5 font-bold text-lg">
+        <div class="flex flex-col justify-between">
+            <p><%= price %>$</p>
+            <p>Count :<%= quantity %></p>
+        </div>
+        <%- include('remove-from-cart', { prodId: id } ) %>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<%- include('../includes/header') %>
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+<%- include('../includes/nav') %>
+
+<%- include('../includes/main') %>
+<div class="space-y-12 relative">
+    <% if(orders.length === 0) { %>
+        <div class="text-3xl font-black text-gray-700">
+            No orders yet.
+        </div>
+    <% } %>
+
+    <% for(let i = 0; i < orders.length; i++) { %>
+        <div class="space-y-8 px-8 py-6 border border-gray-400/70 rounded-xl">
+            <h2 class="text-xl font-bold text-gray-700 mb-4">
+                ORDER #<%= orders[i]._id %>
+            </h2>
+            <% for(let j = 0; j < orders[i].products.length; j++) { %>
+                <%- include('../includes/order-item', {
+                id: orders[i].products[j].product._id,
+                title: orders[i].products[j].product.title,
+                image: orders[i].products[j].product.image,
+                description: orders[i].products[j].product.description,
+                price: orders[i].products[j].product.price,
+                quantity: orders[i].products[j].quantity
+                })
+                %>
+            <% } %>
+        </div>
+    <% } %>
+</div>
+
+<%- include('../includes/footer') %>

@@ -1,0 +1,27 @@
+<%- include('../includes/header') %>
+
+<link rel="stylesheet" href="/css/main.css"/>
+<link rel="stylesheet" href="/css/forms.css"/>
+<link rel="stylesheet" href="/css/product.css"/>
+
+<%- include('../includes/nav') %> <%- include('../includes/main') %>
+
+<form class="product-form" action="<%= editing ? '/admin/edit-product' : '/shop/add-product' %>" method="POST">
+    <%- include('../includes/input', { type: "text", name: "title", placeholder:"product title", value:(editing ? title : null) }) %>
+
+    <%- include('../includes/input', { type: "text", name:"description", placeholder: "product description", value:(editing ? description : null) }) %>
+
+    <%- include('../includes/input', { type: "text", name: "image", placeholder:"product image", value:(editing ? image : null) }) %>
+
+    <%- include('../includes/input', { type: "text", name:"price", placeholder: "product price", value:(editing ? price : null) }) %>
+
+    <input type="hidden" value="<%= csrfToken %>" name="_csrf"/>
+
+    <% if(editing) { %>
+        <input type="hidden" name="prodId" value="<%= _id %>"/>
+    <% } %>
+
+    <%- include('../includes/button', { type: "submit", content:(editing ? "Edit Product" : "Add Product") }) %>
+</form>
+
+<%- include('../includes/footer') %>

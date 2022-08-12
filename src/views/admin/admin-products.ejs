@@ -1,0 +1,36 @@
+<%- include('../includes/header') %>
+
+<link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+<%- include('../includes/nav') %>
+
+<%- include('../includes/main') %>
+<% if (products.length > 0) { %>
+    <h1 class="font-black text-3xl mb-10 mt-4 text-gray-700">Admin Products</h1>
+    <div class="grid grid-cols-4 gap-8">
+        <% for(let i = 0; i < products.length; i++) { %>
+            <article class="shadow-lg flex flex-col shadow-gray-200 rounded-lg overflow-hidden">
+                <header class="max-w-full h-auto">
+                    <img src="<%= products[i].image %>" alt="<%= products[i].title %>">
+                </header>
+                <div class="px-6 pt-4 pb-6 flex flex-col gap-5 grow">
+                    <div>
+                        <h1 class="font-black text-gray-700 text-2xl mb-3"><%= products[i].title %></h1>
+                        <p class="leading-relaxed"><%= products[i].description %></p>
+                    </div>
+                    <div class="flex items-center justify-between mt-auto">
+                        <h2 class="font-bold text-gray-600 text-lg"><%= products[i].price %>$</h2>
+                        <%- include('../includes/edit-product', { prodId: products[i].id }) %>
+                        <%- include('../includes/delete-product', { prodId: products[i].id }) %>
+                    </div>
+                </div>
+            </article>
+        <% } %>
+    </div>
+<% } else { %>
+    <p>No Products Found</p>
+<% } %>
+
+<%- include('../includes/footer') %>

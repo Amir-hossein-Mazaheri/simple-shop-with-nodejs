@@ -1,0 +1,31 @@
+<%- include('../includes/header') %>
+
+<link rel="stylesheet" href="/css/main.css"/>
+<link rel="stylesheet" href="/css/forms.css"/>
+<link rel="stylesheet" href="/css/product.css"/>
+
+<%- include('../includes/nav') %> <%- include('../includes/main') %>
+
+<div class="flex flex-col gap-12 relative">
+    <div class="absolute top-5 left-5">
+        <h3 class="font-bold text-xl text-gray-700 border border-emerald-700 px-5 py-2 rounded-lg">
+            <%= price %>$
+        </h3>
+    </div>
+
+    <div class="absolute top-5 right-5">
+        <%- include('../includes/add-to-cart', { prodId: _id }) %>
+    </div>
+
+    <div class="rounded-xl overflow-hidden shadow shadow-gray-200 w-fit mx-auto">
+        <img class="max-w-full h-56" src="<%= image %>" alt="<%= title %>"/>
+    </div>
+
+    <div class="text-center">
+        <h1 class="text-3xl font-black text-gray-700 mb-5"><%= title %></h1>
+
+        <p class="leading-relaxed text-gray-600"><%= description %></p>
+    </div>
+</div>
+
+<%- include('../includes/footer') %>

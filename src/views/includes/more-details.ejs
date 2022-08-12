@@ -1,0 +1,7 @@
+<form action="/shop/product" method="GET">
+    <button class="px-3 py-1 bg-white border border-emerald-700 text-emerald-700 rounded-lg font-semibold" type="submit">
+        See Details
+    </button>
+    <input type="hidden" value="<%= csrfToken %>" name="_csrf" />
+    <input type="hidden" name="prodId" value="<%= prodId %>" />
+</form>

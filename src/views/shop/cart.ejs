@@ -1,0 +1,35 @@
+<%- include('../includes/header') %>
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+<%- include('../includes/nav') %>
+
+<%- include('../includes/main') %>
+<div class="space-y-8 relative">
+    <% if(items.length > 0) { %>
+        <div class="absolute -top-12 right-5 font-bold text-gray-600 text-2xl">
+            Total: <%= totalPrice %>$
+        </div>
+    <% } else { %>
+        <div class="text-3xl font-black text-gray-700">
+            Your cart is empty.
+        </div>
+    <% } %>
+
+    <% for(let i = 0; i < items.length; i++) { %>
+        <%- include('../includes/cart-item', { id: items[i].productId._id, title: items[i].productId.title, image: items[i].productId.image, description: items[i].productId.description, price: items[i].productId.price, quantity: items[i].quantity }) %>
+    <% } %>
+
+    <% if(items.length > 0) { %>
+        <form action="/shop/orders" method="post">
+            <%- include('../includes/button', { type: "submit", content: "Place Order" }) %>
+            <input type="hidden" value="<%= csrfToken %>" name="_csrf" />
+            <input type="hidden" name="totalPrice" value="<%= totalPrice %>"/>
+        </form>
+    <% } %>
+</div>
+
+<%- include('../includes/footer') %>
