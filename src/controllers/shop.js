@@ -21,11 +21,6 @@ export const renderShop = async (req, res) => {
 export const renderAddProduct = (req, res) => {
   const { isLoggedIn } = req;
 
-  if (req?.user?.role !== "superuser" || !isLoggedIn) {
-    res.redirect("/shop");
-    return;
-  }
-
   res.render("shop/add-product", {
     pageTitle: "Add Product",
     tab: "add-product",
@@ -37,11 +32,6 @@ export const renderAddProduct = (req, res) => {
 
 export const renderCart = async (req, res) => {
   const { isLoggedIn } = req;
-
-  if (!isLoggedIn) {
-    res.redirect("/shop");
-    return;
-  }
 
   try {
     const {
@@ -146,11 +136,6 @@ export const removeFromCart = async (req, res) => {
 
 export const renderOrders = async (req, res) => {
   const { isLoggedIn } = req;
-
-  if (!isLoggedIn) {
-    res.redirect("/shop");
-    return;
-  }
 
   try {
     const orders = await Order.find({ userId: req.user });
