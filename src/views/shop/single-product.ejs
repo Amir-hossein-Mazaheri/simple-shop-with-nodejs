@@ -13,9 +13,11 @@
         </h3>
     </div>
 
-    <div class="absolute top-5 right-5">
-        <%- include('../includes/add-to-cart', { prodId: _id }) %>
-    </div>
+    <% if(isLoggedIn) { %>
+        <div class="absolute top-5 right-5">
+            <%- include('../includes/add-to-cart', { prodId: _id }) %>
+        </div>
+    <% } %>
 
     <div class="rounded-xl overflow-hidden shadow shadow-gray-200 w-fit mx-auto">
         <img class="max-w-full h-56" src="<%= image %>" alt="<%= title %>"/>
