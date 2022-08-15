@@ -15,7 +15,7 @@
 
         <%- include('../includes/input', { type: "password", name: "password", placeholder: "Enter your password", value:null }) %>
 
-        <input type="hidden" value="<%= csrfToken %>" name="_csrf" /
+        <input type="hidden" value="<%= csrfToken %>" name="_csrf" />
 
         <%- include('../includes/button', { type: "submit", content: "Sign Up" }) %>
       </form>
