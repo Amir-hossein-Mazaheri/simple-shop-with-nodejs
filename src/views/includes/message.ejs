@@ -1,0 +1,33 @@
+<% if(contents.length > 0) { %>
+    <% console.log("error is: ", error) %>
+    <div id="<%= id %>"
+         class="absolute bottom-12 left-5 cursor-pointer <%= error ? "bg-red-500" : "bg-green-500" %> px-8 py-4 text-center text-white rounded-lg">
+        <% for(let i = 0; i < contents.length; i++) { %>
+            <p>
+                <%= contents[i] %>
+            </p>
+        <% } %>
+    </div>
+    <script>
+        const message = document.getElementById("<%= id %>");
+
+        const hideMessage = (messageEl) => messageEl.classList.add("hidden");
+
+        const setTimeOut = () => setTimeout(() => {
+            hideMessage(message);
+        }, 3000);
+        let timeout = setTimeOut()
+
+        message.addEventListener('mouseenter', function () {
+            clearTimeout(timeout)
+        })
+
+        message.addEventListener('mouseleave', function () {
+            timeout = setTimeOut()
+        })
+
+        message.addEventListener('click', function () {
+            hideMessage(this)
+        })
+    </script>
+<% } %>

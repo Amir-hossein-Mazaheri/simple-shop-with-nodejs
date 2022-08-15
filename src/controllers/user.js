@@ -19,7 +19,7 @@ export const renderSignUp = (req, res) => {
   });
 };
 
-export const addUser = async (req, res) => {
+export const signUp = async (req, res) => {
   const { password, ...userCredentials } = req.body;
 
   try {
@@ -89,9 +89,21 @@ export const signIn = async (req, res) => {
 
     req.session.save((err) => {
       console.log(err);
-      res.redirect("/user/signup");
+
+      req.flash("error", "false");
+      req.flash("errorContents", [
+        `Hi Dear ${user.firstname}`,
+        "We are happy you are back",
+      ]);
+      req.flash("errorId", "success-signed-in");
+
+      res.redirect("/shop");
     });
   } catch (err) {
+    req.flash("error", true);
+    req.flash("errorContents", ["Something is wrong.", err?.message]);
+    req.flash("errorId", "failed-signed-in");
+
     res.redirect("/user/signin");
     console.log(err);
   }
