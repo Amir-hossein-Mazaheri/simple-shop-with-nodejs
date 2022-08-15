@@ -40,9 +40,7 @@ app.use(setIsLoggedIn);
 app.use(setUser);
 
 app.use("/admin", adminRouter);
-
 app.use("/shop", shopRouter);
-
 app.use("/user", userRouter);
 
 app.use(handle404);
