@@ -1,6 +1,7 @@
 import * as bcrypt from "bcrypt";
 
 import User from "../models/User.js";
+import { validationMsgCreator } from "../utils/validationMsgCreator.js";
 
 export const renderSignUp = (req, res) => {
   const { isLoggedIn } = req;
@@ -21,6 +22,9 @@ export const renderSignUp = (req, res) => {
 
 export const signUp = async (req, res) => {
   const { password, ...userCredentials } = req.body;
+  const validationResult = validationMsgCreator(req, res, "/user/signup");
+
+  if (validationResult) return;
 
   try {
     const user = await User.findOne({ email: userCredentials.email });
@@ -41,16 +45,25 @@ export const signUp = async (req, res) => {
       },
     });
 
-    const { _id: newUserId } = await newUser.save();
+    const { _id: newUserId, firstname } = await newUser.save();
     req.session.userId = newUserId;
 
     req.session.save((err) => {
       console.log(err);
-      res.redirect("/user/signup");
+
+      req.flash("error", "false");
+      req.flash("errorContents", [`Thanks for signing up dear ${firstname}`]);
+      req.flash("errorId", "success-signed-up");
+
+      res.redirect("/shop");
     });
   } catch (err) {
-    res.redirect("/user/signup");
+    req.flash("error", "true");
+    req.flash("errorContents", ["Something went wrong.", err.message]);
+    req.flash("errorId", "error-signed-up");
+
     console.log(err);
+    res.redirect("/user/signup");
   }
 };
 
@@ -73,6 +86,9 @@ export const renderSignin = async (req, res) => {
 
 export const signIn = async (req, res) => {
   const { body } = req;
+  const validationResult = validationMsgCreator(req, res, "/user/signin");
+
+  if (validationResult) return;
 
   try {
     const user = await User.findOne({ email: body.email });
