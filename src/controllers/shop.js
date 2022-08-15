@@ -115,8 +115,21 @@ export const addToCart = async (req, res) => {
     const result = await req.user.addToCart(product);
     console.log(result);
 
+    req.flash("error", "false");
+    req.flash("errorContents", [
+      `Product "${product.title}" added to your cart.`,
+    ]);
+    req.flash("errorId", "success-added-to-cart");
+
     res.redirect("/shop/cart");
   } catch (err) {
+    req.flash("error", "true");
+    req.flash("errorContents", [
+      "Something went wrong while we try to add product to your cart",
+      err.message,
+    ]);
+    req.flash("errorId", "success-added-to-cart");
+
     console.log(err);
   }
 };
@@ -125,12 +138,26 @@ export const removeFromCart = async (req, res) => {
   const { prodId } = req.body;
 
   try {
+    const product = await Product.findById(prodId);
     const result = await req.user.removeFromCart({ _id: prodId });
     console.log(result);
+
+    req.flash("error", "false");
+    req.flash("errorContents", [
+      `Product "${product.title}" removed to your cart.`,
+    ]);
+    req.flash("errorId", "success-remove-from-cart");
 
     res.redirect("/shop/cart");
   } catch (err) {
     console.log(err);
+
+    req.flash("error", "true");
+    req.flash("errorContents", [
+      "Something went wrong with removing product from your cart.",
+      err.message,
+    ]);
+    req.flash("errorId", "success-remove-from-cart");
   }
 };
 
