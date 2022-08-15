@@ -6,8 +6,12 @@ import {
   renderAdminProducts,
   renderEditProduct,
 } from "../controllers/admin.js";
+import { adminAuth, userAuth } from "../middlewares/index.js";
 
 const router = express.Router();
+
+// adds Auth for all routes
+router.use(userAuth, adminAuth);
 
 router.get("/products", renderAdminProducts);
 
